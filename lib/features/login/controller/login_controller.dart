@@ -20,4 +20,14 @@ class LoginController extends GetxController {
     print('login complete $_user');
     rxUser.value = _user ?? User.empty();
   }
+
+  createAndLoginWithEmailPassword({
+    required String email,
+    required String password,
+  }) async {
+    final _user = await _authRepository.createEmailPasswordAndSignIn(
+        email: email, password: password);
+    print('create and login complete $_user');
+    rxUser.value = _user ?? User.empty();
+  }
 }

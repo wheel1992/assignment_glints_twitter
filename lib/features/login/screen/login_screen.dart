@@ -49,6 +49,7 @@ class _LoginScreenState extends State<LoginScreen> {
               _buildTextFieldEmail(),
               _buildTextFieldPassword(),
               _buildButtonLogin(),
+              _buildButtonRegisterAndLogin(),
             ],
           ),
         ),
@@ -82,6 +83,16 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+  Widget _buildButtonRegisterAndLogin() {
+    return FlatButton(
+      onPressed: handleOnButtonRegisterLoginPressed,
+      child: Text(
+        ConstantText.registerAndLogin,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
+
   void handleOnTextFieldEmailChange(String? value) {
     setState(() {
       _email = value ?? Constants.valueEmpty;
@@ -98,5 +109,12 @@ class _LoginScreenState extends State<LoginScreen> {
     print('_email is $_email');
     print('_password is $_password');
     _loginController.loginWithEmailPassword(email: _email, password: _password);
+  }
+
+  void handleOnButtonRegisterLoginPressed() {
+    print('_email is $_email');
+    print('_password is $_password');
+    _loginController.createAndLoginWithEmailPassword(
+        email: _email, password: _password);
   }
 }

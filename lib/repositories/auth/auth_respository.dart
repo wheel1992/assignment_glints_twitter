@@ -15,11 +15,7 @@ class AuthRepository extends AuthRepositoryBase {
     try {
       final _credential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      return GlintsUser.User(
-        displayName: _credential.user!.displayName ?? '',
-        email: _credential.user!.email ?? '',
-        uid: _credential.user!.uid,
-      );
+      return convertUserFromFirebaseCredential(_credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         print('No user found for that email.');
@@ -28,5 +24,35 @@ class AuthRepository extends AuthRepositoryBase {
       }
       return null;
     }
+  }
+
+  Future<GlintsUser.User?> createEmailPasswordAndSignIn(
+      {required String email, required String password}) async {
+    try {
+      final _credential =
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
+      return convertUserFromFirebaseCredential(_credential);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        print('The password provided is too weak.');
+      } else if (e.code == 'email-already-in-use') {
+        print('The account already exists for that email.');
+      }
+      return null;
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
+
+  GlintsUser.User convertUserFromFirebaseCredential(UserCredential credential) {
+    return GlintsUser.User(
+      displayName: credential.user!.displayName ?? '',
+      email: credential.user!.email ?? '',
+      uid: credential.user!.uid,
+    );
   }
 }

@@ -4,4 +4,5 @@ class Constants {
 
 class ConstantText {
   static const login = 'Login';
+  static const registerAndLogin = 'Register & Login';
 }
