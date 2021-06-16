@@ -9,6 +9,14 @@ class User {
     required this.displayName,
   });
 
+  factory User.empty() {
+    return User(
+      uid: '',
+      email: '',
+      displayName: '',
+    );
+  }
+
   User copyWith({String? uid, String? email, String? displayName}) {
     return User(
       uid: uid ?? this.uid,

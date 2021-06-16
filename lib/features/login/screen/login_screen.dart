@@ -1,5 +1,8 @@
+import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
+import 'package:assignment_glints_twitter/repositories/auth/auth_respository.dart';
 import 'package:assignment_glints_twitter/utils/constants.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,9 +20,13 @@ class _LoginScreenState extends State<LoginScreen> {
   late String _email;
   late String _password;
 
+  LoginController _loginController = Get.find();
+
   @override
   void initState() {
     super.initState();
+
+    _loginController.init(authRepository: AuthRepository());
 
     _textEmailController = TextEditingController(text: Constants.valueEmpty);
     _textPasswordController = TextEditingController(text: Constants.valueEmpty);
@@ -90,5 +97,6 @@ class _LoginScreenState extends State<LoginScreen> {
   void handleOnButtonLoginPressed() {
     print('_email is $_email');
     print('_password is $_password');
+    _loginController.loginWithEmailPassword(email: _email, password: _password);
   }
 }

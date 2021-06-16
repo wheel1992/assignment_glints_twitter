@@ -1,8 +1,26 @@
-import 'package:assignment_glints_twitter/screens/login/login_screen.dart';
+import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
-class GlintApp extends StatelessWidget {
+import 'features/login/screen/login_screen.dart';
+
+class GlintApp extends StatefulWidget {
   // This widget is the root of your application.
+  @override
+  _GlintAppState createState() => _GlintAppState();
+}
+
+class _GlintAppState extends State<GlintApp> {
+  @override
+  void initState() {
+    super.initState();
+    Get.put(LoginController());
+    WidgetsBinding.instance!.addPostFrameCallback((timeStamp) async {
+      await Firebase.initializeApp();
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
