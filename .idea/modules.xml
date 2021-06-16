@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/assignment_glints_twitter.iml" filepath="$PROJECT_DIR$/assignment_glints_twitter.iml" />
+      <module fileurl="file://$PROJECT_DIR$/android/assignment_glints_twitter_android.iml" filepath="$PROJECT_DIR$/android/assignment_glints_twitter_android.iml" />
+    </modules>
+  </component>
+</project>
