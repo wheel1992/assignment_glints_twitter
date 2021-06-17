@@ -12,5 +12,11 @@ class ConstantText {
 class ConstantRoute {
   static const root = '/';
   static const tweets = '/tweets';
-  static const tweetCreate = '/tweet/create';
+  static const tweetManage = '/tweet/manage';
+}
+
+class ConstantFirestore {
+  static const collectionTweets = 'tweets';
+  static const jsonKeyId = 'id';
+  static const jsonKeyCreatedAt = 'createdAt';
 }

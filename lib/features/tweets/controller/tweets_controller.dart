@@ -12,4 +12,15 @@ class TweetsController extends GetxController {
   Stream<List<Tweet>> getAllTweets() {
     return _tweetRepository.getAllTweets();
   }
+
+  Future<bool> createTweet({
+    required String content,
+    required String userId,
+  }) async {
+    return _tweetRepository.createTweet(
+      content: content,
+      createdAt: DateTime.now(),
+      createdBy: userId,
+    );
+  }
 }

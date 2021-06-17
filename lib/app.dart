@@ -1,6 +1,6 @@
 import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
 import 'package:assignment_glints_twitter/features/tweets/controller/tweets_controller.dart';
-import 'package:assignment_glints_twitter/features/tweets/screen/create_tweet_screen.dart';
+import 'package:assignment_glints_twitter/features/tweets/screen/manage_tweet_screen.dart';
 import 'package:assignment_glints_twitter/features/tweets/screen/tweets_screen.dart';
 import 'package:assignment_glints_twitter/repositories/auth/auth_repository_base.dart';
 import 'package:assignment_glints_twitter/repositories/auth/auth_respository.dart';
@@ -45,7 +45,7 @@ class _GlintAppState extends State<GlintApp> {
             routes: {
               ConstantRoute.root: (context) => LoginScreen(),
               ConstantRoute.tweets: (context) => TweetsScreen(),
-              ConstantRoute.tweetCreate: (context) => CreateTweetScreen(),
+              ConstantRoute.tweetManage: (context) => ManageTweetScreen(),
             },
           );
         }

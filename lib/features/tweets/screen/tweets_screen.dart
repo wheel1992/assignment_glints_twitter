@@ -1,5 +1,5 @@
 import 'package:assignment_glints_twitter/features/tweets/controller/tweets_controller.dart';
-import 'package:assignment_glints_twitter/features/tweets/screen/create_tweet_screen.dart';
+import 'package:assignment_glints_twitter/features/tweets/screen/manage_tweet_screen.dart';
 import 'package:assignment_glints_twitter/models/tweet/tweet.dart';
 import 'package:assignment_glints_twitter/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -75,10 +75,13 @@ class _TweetsScreenState extends State<TweetsScreen> {
   }
 
   void handleOnButtonCreate() {
-    navigateToCreateTweetScreen();
+    navigateToManageTweetScreen();
   }
 
-  void navigateToCreateTweetScreen() {
-    Get.toNamed(ConstantRoute.tweetCreate);
+  void navigateToManageTweetScreen() {
+    Get.toNamed(
+      ConstantRoute.tweetManage,
+      arguments: ManageTweetScreenArgument(type: ManageTweetScreenType.create),
+    );
   }
 }

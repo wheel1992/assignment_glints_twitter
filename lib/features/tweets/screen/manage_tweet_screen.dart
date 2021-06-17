@@ -1,15 +1,33 @@
+import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
+import 'package:assignment_glints_twitter/features/tweets/controller/tweets_controller.dart';
 import 'package:assignment_glints_twitter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 
-class CreateTweetScreen extends StatefulWidget {
-  const CreateTweetScreen({Key? key}) : super(key: key);
-
-  @override
-  _CreateTweetScreenState createState() => _CreateTweetScreenState();
+enum ManageTweetScreenType {
+  create,
+  edit,
 }
 
-class _CreateTweetScreenState extends State<CreateTweetScreen> {
+class ManageTweetScreenArgument {
+  final ManageTweetScreenType type;
+
+  ManageTweetScreenArgument({required this.type});
+}
+
+class ManageTweetScreen extends StatefulWidget {
+  const ManageTweetScreen({Key? key}) : super(key: key);
+
+  @override
+  _ManageTweetScreenState createState() => _ManageTweetScreenState();
+}
+
+class _ManageTweetScreenState extends State<ManageTweetScreen> {
+  ManageTweetScreenArgument argument = Get.arguments;
+  TweetsController _tweetsController = Get.find();
+  LoginController _loginController = Get.find();
+
   late TextEditingController _textContentController;
   late FocusNode _focusNodeContent;
   late String _content;
@@ -26,6 +44,9 @@ class _CreateTweetScreenState extends State<CreateTweetScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Text(getTitle()),
+      ),
       body: Container(
         child: SafeArea(
           child: Column(
@@ -47,6 +68,15 @@ class _CreateTweetScreenState extends State<CreateTweetScreen> {
     );
   }
 
+  String getTitle() {
+    switch (argument.type) {
+      case ManageTweetScreenType.create:
+        return 'New Tweet';
+      default:
+        return 'Edit Tweet';
+    }
+  }
+
   Widget _buildButtonCreate() {
     return FlatButton(
       onPressed: handleOnButtonCreatePressed,
@@ -63,8 +93,11 @@ class _CreateTweetScreenState extends State<CreateTweetScreen> {
     });
   }
 
-  void handleOnButtonCreatePressed() {
-    print('_content is $_content');
-    // _loginController.loginWithEmailPassword(email: _email, password: _password);
+  Future<void> handleOnButtonCreatePressed() async {
+    final _success = await _tweetsController.createTweet(
+      content: _content,
+      userId: _loginController.rxUser.value.uid,
+    );
+    Get.back<bool>(result: _success);
   }
 }
