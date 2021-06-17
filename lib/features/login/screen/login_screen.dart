@@ -1,4 +1,5 @@
 import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
+import 'package:assignment_glints_twitter/features/tweets/screen/tweets_screen.dart';
 import 'package:assignment_glints_twitter/repositories/auth/auth_respository.dart';
 import 'package:assignment_glints_twitter/utils/constants.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,13 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     _loginController.init(authRepository: AuthRepository());
+    _loginController.rxUser.listen((user) {
+      if (user.uid == '') {
+        return;
+      }
+
+      navigateToTweetsScreen();
+    });
 
     _textEmailController = TextEditingController(text: Constants.valueEmpty);
     _textPasswordController = TextEditingController(text: Constants.valueEmpty);
@@ -116,5 +124,9 @@ class _LoginScreenState extends State<LoginScreen> {
     print('_password is $_password');
     _loginController.createAndLoginWithEmailPassword(
         email: _email, password: _password);
+  }
+
+  void navigateToTweetsScreen() {
+    Get.off(TweetsScreen());
   }
 }

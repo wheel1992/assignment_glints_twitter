@@ -23,7 +23,7 @@ class _GlintAppState extends State<GlintApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       title: 'Glints Twitter',
       theme: ThemeData(
         primarySwatch: Colors.blue,
