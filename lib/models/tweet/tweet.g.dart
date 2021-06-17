@@ -10,7 +10,7 @@ Tweet _$TweetFromJson(Map<String, dynamic> json) {
   return Tweet(
     id: json['id'] as String,
     content: json['content'] as String? ?? '',
-    createdAt: json['createdAt'] as String,
+    createdAt: Tweet.createdAtFromJson(json['createdAt']),
     createdBy: json['createdBy'] as String,
   );
 }
@@ -18,6 +18,6 @@ Tweet _$TweetFromJson(Map<String, dynamic> json) {
 Map<String, dynamic> _$TweetToJson(Tweet instance) => <String, dynamic>{
       'id': instance.id,
       'content': instance.content,
-      'createdAt': instance.createdAt,
+      'createdAt': instance.createdAt.toIso8601String(),
       'createdBy': instance.createdBy,
     };

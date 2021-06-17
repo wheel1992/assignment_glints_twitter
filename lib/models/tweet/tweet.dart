@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tweet.g.dart';
@@ -12,8 +13,8 @@ class Tweet {
   @JsonKey(name: 'content', defaultValue: '')
   final String content;
 
-  @JsonKey(name: 'createdAt')
-  final String createdAt;
+  @JsonKey(name: 'createdAt', fromJson: createdAtFromJson)
+  final DateTime createdAt;
 
   @JsonKey(name: 'createdBy')
   final String createdBy;
@@ -36,7 +37,7 @@ class Tweet {
   Tweet copyWith({
     String? id,
     String? content,
-    String? createdAt,
+    DateTime? createdAt,
     String? createdBy,
   }) {
     return Tweet(
@@ -45,5 +46,20 @@ class Tweet {
       createdAt: createdAt ?? this.createdAt,
       createdBy: createdBy ?? this.createdBy,
     );
+  }
+
+  static DateTime createdAtFromJson(dynamic val) {
+    Timestamp? timestamp;
+    if (val is Timestamp) {
+      timestamp = val;
+    } else if (val is Map) {
+      timestamp = Timestamp(val['_seconds'], val['_nanoseconds']);
+    }
+
+    if (timestamp != null) {
+      return timestamp.toDate();
+    }
+
+    return DateTime.now();
   }
 }

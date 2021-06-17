@@ -1,4 +1,7 @@
+import 'package:assignment_glints_twitter/features/tweets/controller/tweets_controller.dart';
+import 'package:assignment_glints_twitter/models/tweet/tweet.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 class TweetsScreen extends StatefulWidget {
   const TweetsScreen({Key? key}) : super(key: key);
@@ -8,6 +11,14 @@ class TweetsScreen extends StatefulWidget {
 }
 
 class _TweetsScreenState extends State<TweetsScreen> {
+  TweetsController _tweetsController = Get.find();
+
+  @override
+  void initState() {
+    super.initState();
+    _tweetsController.init(tweetRepository: Get.find());
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,9 +36,39 @@ class _TweetsScreenState extends State<TweetsScreen> {
       ),
       body: Container(
         child: SafeArea(
-          child: ListView(),
+          child: renderListTweets(),
         ),
       ),
+    );
+  }
+
+  Widget renderListTweets() {
+    return StreamBuilder<List<Tweet>>(
+      stream: _tweetsController.getAllTweets(),
+      builder: (BuildContext context, AsyncSnapshot<List<Tweet>> snapshot) {
+        if (snapshot.hasError) {
+          return Text(snapshot.error.toString());
+        }
+
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            {
+              return Text('Loading');
+            }
+          default:
+            {
+              print(snapshot.data);
+              return ListView(
+                children: snapshot.data!.map((Tweet tweet) {
+                  return ListTile(
+                    title: Text(tweet.content),
+                    subtitle: Text(tweet.createdAt.toLocal().toString()),
+                  );
+                }).toList(),
+              );
+            }
+        }
+      },
     );
   }
 

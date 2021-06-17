@@ -13,8 +13,8 @@ class AuthRepository extends AuthRepositoryBase {
   Future<GlintsUser.User?> signInWithEmailPassword(
       {required String email, required String password}) async {
     try {
-      final _credential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: email, password: password);
+      final _credential = await _auth.signInWithEmailAndPassword(
+          email: email, password: password);
       return convertUserFromFirebaseCredential(_credential);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
@@ -29,8 +29,7 @@ class AuthRepository extends AuthRepositoryBase {
   Future<GlintsUser.User?> createEmailPasswordAndSignIn(
       {required String email, required String password}) async {
     try {
-      final _credential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
+      final _credential = await _auth.createUserWithEmailAndPassword(
         email: email,
         password: password,
       );

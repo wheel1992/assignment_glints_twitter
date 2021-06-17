@@ -27,7 +27,7 @@ class _LoginScreenState extends State<LoginScreen> {
   void initState() {
     super.initState();
 
-    _loginController.init(authRepository: AuthRepository());
+    _loginController.init(authRepository: Get.find());
     _loginController.rxUser.listen((user) {
       if (user.uid == '') {
         return;
