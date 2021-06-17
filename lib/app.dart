@@ -1,5 +1,7 @@
 import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
 import 'package:assignment_glints_twitter/features/tweets/controller/tweets_controller.dart';
+import 'package:assignment_glints_twitter/features/tweets/screen/create_tweet_screen.dart';
+import 'package:assignment_glints_twitter/features/tweets/screen/tweets_screen.dart';
 import 'package:assignment_glints_twitter/repositories/auth/auth_repository_base.dart';
 import 'package:assignment_glints_twitter/repositories/auth/auth_respository.dart';
 import 'package:assignment_glints_twitter/repositories/tweets/tweet_repository.dart';
@@ -8,6 +10,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:assignment_glints_twitter/utils/constants.dart';
 
 import 'features/login/screen/login_screen.dart';
 
@@ -38,7 +41,12 @@ class _GlintAppState extends State<GlintApp> {
             theme: ThemeData(
               primarySwatch: Colors.blue,
             ),
-            home: LoginScreen(),
+            initialRoute: ConstantRoute.root,
+            routes: {
+              ConstantRoute.root: (context) => LoginScreen(),
+              ConstantRoute.tweets: (context) => TweetsScreen(),
+              ConstantRoute.tweetCreate: (context) => CreateTweetScreen(),
+            },
           );
         }
 
