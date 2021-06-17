@@ -9,6 +9,7 @@ class TweetRepository extends TweetRepositoryBase {
   Stream<List<Tweet>> getAllTweets() {
     return FirebaseFirestore.instance
         .collection('tweets')
+        .orderBy('createdAt', descending: true)
         .snapshots()
         .map((snapshot) {
       return snapshot.docs
