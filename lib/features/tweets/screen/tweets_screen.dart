@@ -44,6 +44,41 @@ class _TweetsScreenState extends State<TweetsScreen> {
     );
   }
 
+  Widget renderListItemTweet(Tweet tweet) {
+    return ListTile(
+      title: Text(tweet.content),
+      subtitle: Text(tweet.createdAt!.toLocal().toString()),
+      trailing: renderListItemMenuOption(tweet),
+    );
+  }
+
+  Widget renderListItemMenuOption(Tweet tweet) {
+    return PopupMenuButton(
+      itemBuilder: (BuildContext context) {
+        return <PopupMenuEntry>[
+          PopupMenuItem(
+            child: ListTile(
+              leading: Icon(Icons.edit),
+              title: Text(ConstantText.menuEdit),
+              onTap: () {
+                handleOnListItemTweetEditPressed(tweet);
+              },
+            ),
+          ),
+          PopupMenuItem(
+            child: ListTile(
+              leading: Icon(Icons.delete_forever),
+              title: Text(ConstantText.menuDelete),
+              onTap: () {
+                handleOnListItemTweetDeletePressed(tweet);
+              },
+            ),
+          ),
+        ];
+      },
+    );
+  }
+
   Widget renderListTweets() {
     return StreamBuilder<List<Tweet>>(
       stream: _tweetsController.getAllTweets(),
@@ -61,12 +96,9 @@ class _TweetsScreenState extends State<TweetsScreen> {
             {
               print(snapshot.data);
               return ListView(
-                children: snapshot.data!.map((Tweet tweet) {
-                  return ListTile(
-                    title: Text(tweet.content),
-                    subtitle: Text(tweet.createdAt.toLocal().toString()),
-                  );
-                }).toList(),
+                children: snapshot.data!
+                    .map((Tweet tweet) => renderListItemTweet(tweet))
+                    .toList(),
               );
             }
         }
@@ -74,14 +106,62 @@ class _TweetsScreenState extends State<TweetsScreen> {
     );
   }
 
+  Future<void> showDeleteTweetConfirmationDialog(Tweet tweet) async {
+    // Setup buttons
+    Widget cancelButton = FlatButton(
+      child: Text(ConstantText.dialogTweetDeleteOptionCancel),
+      onPressed: () {
+        Get.back();
+      },
+    );
+    Widget confirmButton = FlatButton(
+      child: Text(ConstantText.dialogTweetDeleteOptionConfirm),
+      onPressed: () async {
+        await _tweetsController.deleteTweet(id: tweet.id);
+        Get.back();
+      },
+    );
+
+    // Setup AlertDialog
+    AlertDialog alert = AlertDialog(
+      title: Text(ConstantText.dialogTweetDeleteTitle),
+      content: Text(ConstantText.dialogTweetDeleteMessage),
+      actions: [
+        cancelButton,
+        confirmButton,
+      ],
+    );
+
+    // Show dialog
+    await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return alert;
+      },
+    );
+  }
+
+  void handleOnListItemTweetEditPressed(Tweet tweet) {
+    navigateToManageTweetScreen(tweet: tweet);
+  }
+
+  void handleOnListItemTweetDeletePressed(Tweet tweet) {
+    showDeleteTweetConfirmationDialog(tweet);
+  }
+
   void handleOnButtonCreate() {
     navigateToManageTweetScreen();
   }
 
-  void navigateToManageTweetScreen() {
+  void navigateToManageTweetScreen({Tweet? tweet}) {
     Get.toNamed(
       ConstantRoute.tweetManage,
-      arguments: ManageTweetScreenArgument(type: ManageTweetScreenType.create),
+      arguments: ManageTweetScreenArgument(
+        type: tweet == null
+            ? ManageTweetScreenType.create
+            : ManageTweetScreenType.edit,
+        tweet: tweet,
+      ),
     );
   }
 }

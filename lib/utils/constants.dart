@@ -7,6 +7,13 @@ class ConstantText {
   static const buttonCreateTweet = 'Create';
   static const buttonLogin = 'Login';
   static const buttonRegisterAndLogin = 'Register & Login';
+  static const buttonEditSaveTweet = 'Save';
+  static const menuEdit = 'Edit';
+  static const menuDelete = 'Delete';
+  static const dialogTweetDeleteTitle = 'Delete tweet';
+  static const dialogTweetDeleteMessage = 'Do you confirm deleting this tweet?';
+  static const dialogTweetDeleteOptionConfirm = 'Confirm';
+  static const dialogTweetDeleteOptionCancel = 'Cancel';
 }
 
 class ConstantRoute {

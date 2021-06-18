@@ -9,4 +9,16 @@ abstract class TweetRepositoryBase {
     required DateTime createdAt,
     required String createdBy,
   });
+
+  Future<bool> updateTweet({
+    required String id,
+    required String content,
+    required DateTime createdAt,
+    required String createdBy,
+    required DateTime updatedAt,
+  });
+
+  Future<bool> deleteTweet({
+    required String id,
+  });
 }
