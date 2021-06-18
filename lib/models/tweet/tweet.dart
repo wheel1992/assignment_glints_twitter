@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'tweet.g.dart';
@@ -13,17 +12,29 @@ class Tweet {
   @JsonKey(name: 'content', defaultValue: '')
   final String content;
 
-  @JsonKey(name: 'createdAt', fromJson: createdAtFromJson)
-  final DateTime createdAt;
+  @JsonKey(
+    name: 'createdAt',
+    fromJson: convertTimestampToDateTime,
+    toJson: convertDateTimeToTimestamp,
+  )
+  final DateTime? createdAt;
 
   @JsonKey(name: 'createdBy')
   final String createdBy;
+
+  @JsonKey(
+    name: 'updatedAt',
+    fromJson: convertTimestampToDateTime,
+    toJson: convertDateTimeToTimestamp,
+  )
+  final DateTime? updatedAt;
 
   Tweet({
     required this.id,
     required this.content,
     required this.createdAt,
     required this.createdBy,
+    required this.updatedAt,
   });
 
   @override
@@ -39,27 +50,38 @@ class Tweet {
     String? content,
     DateTime? createdAt,
     String? createdBy,
+    DateTime? updatedAt,
   }) {
     return Tweet(
       id: id ?? this.id,
       content: content ?? this.content,
       createdAt: createdAt ?? this.createdAt,
       createdBy: createdBy ?? this.createdBy,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
 
-  static DateTime createdAtFromJson(dynamic val) {
-    Timestamp? timestamp;
-    if (val is Timestamp) {
-      timestamp = val;
-    } else if (val is Map) {
-      timestamp = Timestamp(val['_seconds'], val['_nanoseconds']);
+  static DateTime? convertTimestampToDateTime(dynamic val) {
+    if (val is int) {
+      if (val > 0) {
+        return DateTime.fromMillisecondsSinceEpoch(val, isUtc: true).toLocal();
+      }
     }
 
-    if (timestamp != null) {
-      return timestamp.toDate();
+    if (val is String) {
+      return DateTime.fromMillisecondsSinceEpoch(
+              int.tryParse(val, radix: 10) ?? 0,
+              isUtc: true)
+          .toLocal();
     }
 
-    return DateTime.now();
+    return null;
+  }
+
+  static int? convertDateTimeToTimestamp(DateTime? val) {
+    if (val == null) {
+      return 0;
+    }
+    return val.millisecondsSinceEpoch;
   }
 }
