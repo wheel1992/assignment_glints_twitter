@@ -23,7 +23,6 @@ class GlintApp extends StatefulWidget {
     required this.firebaseFirestore,
   });
 
-  // This widget is the root of your application.
   @override
   _GlintAppState createState() => _GlintAppState();
 }
