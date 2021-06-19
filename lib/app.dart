@@ -8,7 +8,6 @@ import 'package:assignment_glints_twitter/repositories/tweets/tweet_repository.d
 import 'package:assignment_glints_twitter/repositories/tweets/tweet_repository_base.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:assignment_glints_twitter/utils/constants.dart';
@@ -16,6 +15,14 @@ import 'package:assignment_glints_twitter/utils/constants.dart';
 import 'features/login/screen/login_screen.dart';
 
 class GlintApp extends StatefulWidget {
+  final FirebaseAuth firebaseAuth;
+  final FirebaseFirestore firebaseFirestore;
+
+  GlintApp({
+    required this.firebaseAuth,
+    required this.firebaseFirestore,
+  });
+
   // This widget is the root of your application.
   @override
   _GlintAppState createState() => _GlintAppState();
@@ -56,15 +63,13 @@ class _GlintAppState extends State<GlintApp> {
     );
   }
 
-  Future init() async {
-    await Firebase.initializeApp();
-
+  Future<void> init() async {
     // Initialise repositories
     final _authRespository = AuthRepository();
-    _authRespository.setup(auth: FirebaseAuth.instance);
+    _authRespository.setup(auth: widget.firebaseAuth);
     Get.put<AuthRepositoryBase>(_authRespository);
 
-    final _tweetRepository = TweetRepository(FirebaseFirestore.instance);
+    final _tweetRepository = TweetRepository(widget.firebaseFirestore);
     Get.put<TweetRepositoryBase>(_tweetRepository);
 
     // Initialise controllers
