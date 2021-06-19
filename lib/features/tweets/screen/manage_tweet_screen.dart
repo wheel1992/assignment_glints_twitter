@@ -55,6 +55,7 @@ class _ManageTweetScreenState extends State<ManageTweetScreen> {
         title: Text(getTitle()),
       ),
       body: Container(
+        padding: EdgeInsets.all(16.0),
         child: SafeArea(
           child: Column(
             children: [

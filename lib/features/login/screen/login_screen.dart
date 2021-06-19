@@ -1,6 +1,5 @@
 import 'package:assignment_glints_twitter/features/login/controller/login_controller.dart';
 import 'package:assignment_glints_twitter/features/tweets/screen/tweets_screen.dart';
-import 'package:assignment_glints_twitter/repositories/auth/auth_respository.dart';
 import 'package:assignment_glints_twitter/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -28,6 +27,11 @@ class _LoginScreenState extends State<LoginScreen> {
     super.initState();
 
     _loginController.init(authRepository: Get.find());
+    /**
+     * Start listening to change in LoginController.
+     * If user is not null, it means user has login.
+     * Directly navigate to tweets screen.
+     */
     _loginController.rxUser.listen((user) {
       if (user.uid == '') {
         return;
@@ -36,13 +40,13 @@ class _LoginScreenState extends State<LoginScreen> {
       navigateToTweetsScreen();
     });
 
-    _textEmailController = TextEditingController(text: Constants.valueEmpty);
-    _textPasswordController = TextEditingController(text: Constants.valueEmpty);
-    _focusNodeEmail = FocusNode();
-    _focusNodePassword = FocusNode();
-
     _email = Constants.valueEmpty;
     _password = Constants.valueEmpty;
+
+    _textEmailController = TextEditingController(text: _email);
+    _textPasswordController = TextEditingController(text: _password);
+    _focusNodeEmail = FocusNode();
+    _focusNodePassword = FocusNode();
   }
 
   @override
@@ -114,14 +118,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void handleOnButtonLoginPressed() {
-    print('_email is $_email');
-    print('_password is $_password');
     _loginController.loginWithEmailPassword(email: _email, password: _password);
   }
 
   void handleOnButtonRegisterLoginPressed() {
-    print('_email is $_email');
-    print('_password is $_password');
     _loginController.createAndLoginWithEmailPassword(
         email: _email, password: _password);
   }
