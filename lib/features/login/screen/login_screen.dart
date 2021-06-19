@@ -35,14 +35,15 @@ class _LoginScreenState extends State<LoginScreen> {
 
       navigateToTweetsScreen();
     });
+    // _email = Constants.valueEmpty;
+    // _password = Constants.valueEmpty;
+    _email = 'hello@glints.com';
+    _password = '123456';
 
-    _textEmailController = TextEditingController(text: Constants.valueEmpty);
-    _textPasswordController = TextEditingController(text: Constants.valueEmpty);
+    _textEmailController = TextEditingController(text: _email);
+    _textPasswordController = TextEditingController(text: _password);
     _focusNodeEmail = FocusNode();
     _focusNodePassword = FocusNode();
-
-    _email = Constants.valueEmpty;
-    _password = Constants.valueEmpty;
   }
 
   @override
