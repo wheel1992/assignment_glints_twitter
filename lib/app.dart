@@ -6,6 +6,7 @@ import 'package:assignment_glints_twitter/repositories/auth/auth_repository_base
 import 'package:assignment_glints_twitter/repositories/auth/auth_respository.dart';
 import 'package:assignment_glints_twitter/repositories/tweets/tweet_repository.dart';
 import 'package:assignment_glints_twitter/repositories/tweets/tweet_repository_base.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -63,7 +64,7 @@ class _GlintAppState extends State<GlintApp> {
     _authRespository.setup(auth: FirebaseAuth.instance);
     Get.put<AuthRepositoryBase>(_authRespository);
 
-    final _tweetRepository = TweetRepository();
+    final _tweetRepository = TweetRepository(FirebaseFirestore.instance);
     Get.put<TweetRepositoryBase>(_tweetRepository);
 
     // Initialise controllers

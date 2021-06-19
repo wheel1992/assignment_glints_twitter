@@ -6,12 +6,18 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'tweet_repository_base.dart';
 
 class TweetRepository extends TweetRepositoryBase {
+  late FirebaseFirestore _firestore;
+
+  TweetRepository(FirebaseFirestore firestore) {
+    _firestore = firestore;
+  }
+
   CollectionReference<Map<String, dynamic>> _getCollectionTweetsReference() =>
-      FirebaseFirestore.instance.collection(ConstantFirestore.collectionTweets);
+      _firestore.collection(ConstantFirestore.collectionTweets);
 
   @override
   Stream<List<Tweet>> getAllTweets() {
-    return FirebaseFirestore.instance
+    return _firestore
         .collection(ConstantFirestore.collectionTweets)
         .orderBy(ConstantFirestore.jsonKeyCreatedAt, descending: true)
         .snapshots()
