@@ -28,6 +28,12 @@ void main() {
     _tweetRepository = TweetRepository(_firestore);
   });
 
+  Future<int> getFirestoreTweetsCount() async {
+    final _snapshot =
+        await _firestore.collection(ConstantFirestore.collectionTweets).get();
+    return _snapshot.docs.length;
+  }
+
   test('should returm all tweets which are stored in firestore', () async {
     // Arrange
     // Since Firestore is faked at setUp, no arrangement is required
@@ -44,6 +50,7 @@ void main() {
   test('should create a new tweet, TweetD', () async {
     // Arrange
     // Since Firestore is faked at setUp, no arrangement is required
+    final _initalCount = await getFirestoreTweetsCount();
 
     // Act
     final _result = await _tweetRepository.createTweet(
@@ -52,28 +59,25 @@ void main() {
       createdBy: MockData.tweetD.createdBy,
     );
 
+    final _finalCount = await getFirestoreTweetsCount();
+
     // Assert
     expect(_result, true);
-    final snapshot =
-        await _firestore.collection(ConstantFirestore.collectionTweets).get();
-    expect(snapshot.docs.length, 4);
+    expect(_finalCount, _initalCount + 1);
   });
 
-  test('should delete a tweet, TweetD', () async {
+  test('should delete a tweet, TweetC', () async {
     // Arrange
     // Since Firestore is faked at setUp, no arrangement is required
+    final _initalCount = await getFirestoreTweetsCount();
 
     // Act
-    // final _result = await _tweetRepository.createTweet(
-    //   content: MockData.tweetD.content,
-    //   createdAt: MockData.tweetD.createdAt!,
-    //   createdBy: MockData.tweetD.createdBy,
-    // );
+    final _result = await _tweetRepository.deleteTweet(id: MockData.tweetC.id);
 
-    // // Assert
-    // expect(_result, true);
-    final snapshot = await _firestore.collection('tweets').get();
-    print(snapshot.docs.length);
-    expect(snapshot.docs.length, 4);
+    final _finalCount = await getFirestoreTweetsCount();
+
+    // Assert
+    expect(_result, true);
+    expect(_finalCount, _initalCount - 1);
   });
 }
