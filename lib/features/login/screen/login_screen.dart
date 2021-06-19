@@ -85,7 +85,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return FlatButton(
       onPressed: handleOnButtonLoginPressed,
       child: Text(
-        ConstantText.login,
+        ConstantText.buttonLogin,
         textAlign: TextAlign.center,
       ),
     );
@@ -95,7 +95,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return FlatButton(
       onPressed: handleOnButtonRegisterLoginPressed,
       child: Text(
-        ConstantText.registerAndLogin,
+        ConstantText.buttonRegisterAndLogin,
         textAlign: TextAlign.center,
       ),
     );

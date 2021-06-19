@@ -12,4 +12,37 @@ class TweetsController extends GetxController {
   Stream<List<Tweet>> getAllTweets() {
     return _tweetRepository.getAllTweets();
   }
+
+  Future<bool> createTweet({
+    required String content,
+    required String userId,
+  }) async {
+    return _tweetRepository.createTweet(
+      content: content,
+      createdAt: DateTime.now(),
+      createdBy: userId,
+    );
+  }
+
+  Future<bool> updateTweet({
+    required String id,
+    required String content,
+    required DateTime createdAt,
+    required String createdBy,
+    required DateTime updatedAt,
+  }) async {
+    return _tweetRepository.updateTweet(
+      id: id,
+      content: content,
+      createdAt: createdAt,
+      createdBy: createdBy,
+      updatedAt: updatedAt,
+    );
+  }
+
+  Future<bool> deleteTweet({required String id}) {
+    return _tweetRepository.deleteTweet(
+      id: id,
+    );
+  }
 }
