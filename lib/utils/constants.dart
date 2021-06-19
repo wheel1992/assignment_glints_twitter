@@ -14,6 +14,7 @@ class ConstantText {
   static const dialogTweetDeleteMessage = 'Do you confirm deleting this tweet?';
   static const dialogTweetDeleteOptionConfirm = 'Confirm';
   static const dialogTweetDeleteOptionCancel = 'Cancel';
+  static const titleTweets = 'Tweets';
 }
 
 class ConstantRoute {

@@ -25,14 +25,13 @@ class _TweetsScreenState extends State<TweetsScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Tweets'),
+        title: Text(ConstantText.titleTweets),
         actions: [
-          FlatButton.icon(
+          IconButton(
             onPressed: handleOnButtonCreate,
             icon: Icon(
               Icons.add,
             ),
-            label: Text('Create tweet'),
           ),
         ],
       ),
@@ -89,18 +88,20 @@ class _TweetsScreenState extends State<TweetsScreen> {
 
         switch (snapshot.connectionState) {
           case ConnectionState.waiting:
-            {
-              return Text('Loading');
-            }
+            return Column(
+              children: [
+                CircularProgressIndicator(),
+              ],
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+            );
           default:
-            {
-              print(snapshot.data);
-              return ListView(
-                children: snapshot.data!
-                    .map((Tweet tweet) => renderListItemTweet(tweet))
-                    .toList(),
-              );
-            }
+            return ListView(
+              children: snapshot.data!
+                  .map((Tweet tweet) => renderListItemTweet(tweet))
+                  .toList(),
+            );
         }
       },
     );
