@@ -1,6 +1,13 @@
 import 'package:assignment_glints_twitter/models/tweet/tweet.dart';
+import 'package:firebase_auth_mocks/firebase_auth_mocks.dart';
 
 class MockData {
+  static final user = MockUser(
+    isAnonymous: false,
+    uid: 'abcderfg123456',
+    email: 'hello@glints.com',
+  );
+
   static final tweetA = Tweet.fromJson({
     "content": "tweet A",
     "createdAt": 1624023054979,
