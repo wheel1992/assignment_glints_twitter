@@ -1,6 +1,8 @@
 
 # Assignment Glints Twitter
 
+<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/demo-location.gif" height="400"/>
+
 ## 1. Introduction
 
 Assignment based on [1-Person Twitter App](https://gist.github.com/seahyc/a937011e576bc32fe1b54ea8ab8cf52f).
@@ -57,10 +59,7 @@ Each document has an unique auto generated id and contain the following paramete
 |`createdBy`|string|`Firebase` authenticated user's uid|
 |`updatedAt`|number|UTC millisecond since epoch.<br/>When tweet is edited and saved, this value will be created|
 
-### 3.3. Demo
-
-<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/demo-location.gif" height="400"/>
-
+---
 
 ## 4. Improvements
 1. Indicate loading indicator during data retrieval
