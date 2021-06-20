@@ -23,9 +23,20 @@ ex Flutter Engineer x Product Owner @ Hmlet Singapore
 
 ## In-depth Analysis
 
+### Screenshoots
+
 |Screens|Explaination|
 |---|---|
-|<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/screenshoots/1-login.png" alt="drawing" height="200"/>||
+|<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/screenshoots/1-login.png" alt="drawing" height="400"/>||
+|<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/screenshoots/2-tweets.png" alt="drawing" height="400"/>||
+|<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/screenshoots/3-create-tweet.png" alt="drawing" height="400"/>||
+|<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/screenshoots/4-edit-tweet.png" alt="drawing" height="400"/>||
+|<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/screenshoots/5-delete-tweet.png" alt="drawing" height="400"/>||
+
+### Demo
+
+<img src="https://github.com/wheel1992/assignment_glints_twitter/blob/main/demo-location.gif" height="400"/>
+
 
 ## Improvements
 1. Indicate loading indicator during data retrieval
