@@ -67,3 +67,4 @@ Each document has an unique auto generated id and contain the following paramete
 2. Add taggings by username and hashtags
 3. Add search for tweets based on username, tagged user and hashtags
 4. Improve UX
+5. Integate CI/CD with Codemagic / Bitrise
