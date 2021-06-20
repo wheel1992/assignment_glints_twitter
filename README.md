@@ -62,6 +62,8 @@ Each document has an unique auto generated id and contain the following paramete
 ---
 
 ## 4. Improvements
-1. Indicate loading indicator during data retrieval
-2. 
 
+1. Display loading indicator during data retrieval
+2. Add taggings by username and hashtags
+3. Add search for tweets based on username, tagged user and hashtags
+4. Improve UX
