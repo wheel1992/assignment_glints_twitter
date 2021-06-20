@@ -90,7 +90,11 @@ class _TweetsScreenState extends State<TweetsScreen> {
           case ConnectionState.waiting:
             return Column(
               children: [
-                CircularProgressIndicator(),
+                SizedBox(
+                  width: 48.0,
+                  height: 48.0,
+                  child: CircularProgressIndicator(),
+                ),
               ],
               mainAxisSize: MainAxisSize.max,
               mainAxisAlignment: MainAxisAlignment.center,
